@@ -7,14 +7,17 @@ import { Input } from "@/components/ui/input";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Perform login logic here
-    const userData = { username }; // Mock user data
-    login(userData);
-    navigate("/profile");
+    login(username, password);
+    if (isAuthenticated) {
+      navigate("/profile");
+    } else {
+      // Handle login failure (e.g., show an error message)
+      console.error("Login failed");
+    }
   };
 
   return (
